@@ -9,4 +9,4 @@ An application that tries to predict a user's future location.
 
 ## Running the backend
 * cd backend
-* python plotdy.py
+* python plotdt.py
