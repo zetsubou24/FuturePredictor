@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from pandas import concat,DataFrame
+from pandas import concat, DataFrame
 from sklearn.model_selection import train_test_split
 import os
 import math
@@ -14,7 +14,7 @@ app = flask.Flask(__name__)
 app.config["DEBUG"] = True
 CORS(app)
 
-with open('C:/Users/alpha/Desktop/map-frontend/data/location_history_102014.json') as f:
+with open('../data/location_history_102014.json') as f:
     data = json.load(f)
 
 
