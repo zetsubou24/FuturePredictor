@@ -7,7 +7,6 @@ function toFixed(num, fixed) {
 }
 
 const Map = () => {
-  var map, marker;
   const [flag, setFlag] = useState(false);
   const [fg, setFg] = useState({});
   const [isDataUpdated, updateData] = useState(0);
@@ -15,29 +14,94 @@ const Map = () => {
     Latitude: toFixed(40.4212216, 5),
     Longitude: toFixed(-3.6286935, 5)
   });
+  // useEffect(() => {
+  //   window.L.mapquest.key = "6kGGFBuABs2Z9TqeYxq7GTxpgA3N9Qeg";
+  //   const newFg = window.L.featureGroup();
+  //   setFg(newFg);
+
+  //   map = window.L.mapquest.map("map", {
+  //     center: [toFixed(40.4212216, 5), toFixed(-3.6286935, 5)],
+  //     layers: [window.L.mapquest.tileLayer("dark"), newFg],
+  //     zoom: 15
+  //   });
+
+  //   window.L.marker(
+  //     [toFixed(future.Latitude, 5), toFixed(future.Longitude, 5)],
+  //     {
+  //       icon: window.L.mapquest.icons.marker({
+  //         primaryColor: "#101820",
+  //         secondaryColor: "#417505",
+  //         shadow: true,
+  //         size: "md"
+  //       })
+  //     }
+  //   ).addTo(newFg);
+  // }, []);
+
   useEffect(() => {
-    window.L.mapquest.key = "6kGGFBuABs2Z9TqeYxq7GTxpgA3N9Qeg";
+    window.L.mapquest.key = "6kGGFBuABs2Z9TqeYxq7GTxpgA3N9Qeg"
     const newFg = window.L.featureGroup();
     setFg(newFg);
 
-    map = window.L.mapquest.map("map", {
-      center: [toFixed(40.4212216, 5), toFixed(-3.6286935, 5)],
-      layers: [window.L.mapquest.tileLayer("dark"), newFg],
-      zoom: 15
-    });
+    var directions = window.L.mapquest.directions();
+    directions.route({
+    start: [toFixed(40.4212216, 5), toFixed(-3.6286935, 5)],
+    end: [toFixed(40.4203582, 5), toFixed(-3.62537565, 5)]
+    },createMap);
 
-    window.L.marker(
-      [toFixed(future.Latitude, 5), toFixed(future.Longitude, 5)],
-      {
-        icon: window.L.mapquest.icons.marker({
-          primaryColor: "#101820",
-          secondaryColor: "#417505",
-          shadow: true,
-          size: "md"
-        })
-      }
-    ).addTo(newFg);
-  }, []);
+    function createMap(err, response) {
+  
+      window.L.mapquest.map("map", {
+        center: [toFixed(40.4212216, 5), toFixed(-3.6286935, 5)],
+        layers: [window.L.mapquest.tileLayer("dark"), newFg],
+        zoom: 15
+        });
+
+    // window.L.marker(
+    //   [toFixed(future.Latitude, 5), toFixed(future.Longitude, 5)],
+    //   {
+    //     icon: window.L.mapquest.icons.marker({
+    //       primaryColor: "#101820",
+    //       secondaryColor: "#417505",
+    //       shadow: true,
+    //       size: "md"
+    //     })
+    //   }
+    // ).addTo(newFg);
+  
+
+
+  var customLayer = window.L.mapquest.directionsLayer({
+    startMarker: {
+      icon: 'marker',
+      iconOptions: {
+        size: 'md',
+        primaryColor: "#101820",
+        secondaryColor: "#417505",
+      },
+      draggable: false,
+      title: 'You are here'
+    },
+    endMarker: {
+      icon: 'marker',
+      iconOptions: {
+        size: 'md',
+        primaryColor: "#101820",
+        secondaryColor: "#800000",
+      },
+      title: 'Possible destination'
+    },
+    routeRibbon: {
+      color: "#2aa6ce",
+      opacity: 1.0,
+      showTraffic: false,
+    },
+    directionsResponse: response
+  });
+  customLayer.addTo(newFg);
+}
+  },[])
+
   const handleClickAdd = () => {
     window.L.marker(
       [toFixed(future.Latitude, 5), toFixed(future.Longitude, 5)],
@@ -52,28 +116,42 @@ const Map = () => {
     ).addTo(fg);
   };
 
+  // const handleApiCall = () => {
+  //   fetch("http://localhost:5000/getLocation")
+  //     .then(response => {
+  //       return response.json();
+  //     })
+  //     .then(data => {
+  //       console.log(data);
+  //       setFuture(data);
+  //       console.log(data.Latitude, typeof data.Latitude);
+  //       window.L.marker(
+  //         [toFixed(data.Latitude, 5), toFixed(data.Longitude, 5)],
+  //         {
+  //           icon: window.L.mapquest.icons.marker({
+  //             primaryColor: "#101820",
+  //             secondaryColor: "#800000",
+  //             shadow: true,
+  //             size: "md"
+  //           })
+  //         }
+  //       ).addTo(fg);
+  //       updateData(isDataUpdated + 1);
+  //     });
+  // };
+
   const handleApiCall = () => {
-    fetch("http://localhost:5000/getLocation")
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
-        console.log(data);
-        setFuture(data);
-        console.log(data.Latitude, typeof data.Latitude);
-        window.L.marker(
-          [toFixed(data.Latitude, 5), toFixed(data.Longitude, 5)],
-          {
-            icon: window.L.mapquest.icons.marker({
-              primaryColor: "#101820",
-              secondaryColor: "#800000",
-              shadow: true,
-              size: "md"
-            })
-          }
-        ).addTo(fg);
-        updateData(isDataUpdated + 1);
-      });
+    window.L.marker(
+      [toFixed(40.4203582, 5), toFixed(-3.62537565, 5)],
+      {
+        icon: window.L.mapquest.icons.marker({
+          primaryColor: "#101820",
+          secondaryColor: "#800000",
+          shadow: true,
+          size: "md"
+        })
+      }
+    ).addTo(fg);
   };
 
   const handleClickRemove = () => {
@@ -97,6 +175,8 @@ const Map = () => {
     setFlag(!flag);
     setFg(fg);
   };
+
+
   return (
     <>
       <Button onClick={() => handleClickAdd()}>Add Marker</Button>
