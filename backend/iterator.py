@@ -24,12 +24,12 @@ class Iterator:
     def getCurrentIndex(self):
         return self.pointer
     def getCurrentLocations(self):
-        return dict[self.pointer]
+        return [self.dict[self.pointer].a,self.dict[self.pointer].b,self.dict[self.pointer].c]
     def getNext(self):
         if self.pointer +1>=len(self.locs)-2:
             return None
         self.pointer+=1
-        return self.dict[se lf.pointer].a
+        return self.dict[self.pointer].a
     def getPrev(self):
         if self.pointer-1<0:
             return None
@@ -43,14 +43,15 @@ class Iterator:
         flag=0
         pp=[a,b,c]
         for i in range(len(self.locs)-3):
-            if i>3 and i<9:
-                print([self.dict[i].a,self.dict[i].b,self.dict[i].c])
+            # print([self.dict[i].a,self.dict[i].b,self.dict[i].c])
             if pp==[self.dict[i].a,self.dict[i].b,self.dict[i].c]:
                 self.pointer=i
                 flag=1
                 break
         if flag==0:
             print("Sequence not found")
+            return 0
+        return 1
     def buildIterator(self,li):
         current=None
         start=None
@@ -72,11 +73,10 @@ class Iterator:
         
 obj=Iterator()
 # print(obj.dict)
-print(1 in obj.dict.keys())
-print(obj.dict[1])
 print(obj.getNext())
-print(obj.setPointerToCurrent([-3.6286935 ,40.4212216], [-3.628588  ,40.4231694], [-3.6275805 ,40.4212471]))
-
+print(obj.setPointerToCurrent([-3.6332096, 40.4207929], [-3.6332096, 40.4207929], [-3.6332096, 40.4207929]))
+print(obj.getCurrentIndex())
+print(obj.getCurrentLocations())
         
         
         
