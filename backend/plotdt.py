@@ -75,6 +75,4 @@ def home():
         "Longitude": ans[0][0]
     }
     return jsonify(apiloc)
-
-
 app.run()
