@@ -124,7 +124,7 @@ const Map = forwardRef((props, ref) => {
   const findNearbyRestaurants = () => {
     const TomtomKEY = "2xrfCdFd2nGVXM5iYXAZpueDTqBfFYIh";
     fetch(
-      `https://api.tomtom.com/search/2/poiSearch/restaurant.json?limit=4&lat=${future.Latitude}&lon=${future.Longitude}&radius=1000&categorySet=7315&key=${TomtomKEY}`
+      `https://api.tomtom.com/search/2/poiSearch/restaurant.json?limit=5&lat=${future.Latitude}&lon=${future.Longitude}&radius=1000&categorySet=7315&key=${TomtomKEY}`
     )
       .then(response => {
         return response.json();
@@ -158,7 +158,7 @@ const Map = forwardRef((props, ref) => {
   const findNearbyHospitals = () => {
     const TomtomKEY = "2xrfCdFd2nGVXM5iYXAZpueDTqBfFYIh";
     fetch(
-      `https://api.tomtom.com/search/2/poiSearch/.json?limit=4&lat=${future.Latitude}&lon=${future.Longitude}&radius=10000&categorySet=7321&key=${TomtomKEY}`
+      `https://api.tomtom.com/search/2/poiSearch/.json?limit=5&lat=${future.Latitude}&lon=${future.Longitude}&radius=10000&categorySet=7321&key=${TomtomKEY}`
     )
       .then(response => {
         return response.json();
@@ -193,7 +193,7 @@ const Map = forwardRef((props, ref) => {
   const findNearbyShoppingCenters = () => {
     const TomtomKEY = "2xrfCdFd2nGVXM5iYXAZpueDTqBfFYIh";
     fetch(
-      `https://api.tomtom.com/search/2/poiSearch/.json?limit=4&lat=${future.Latitude}&lon=${future.Longitude}&radius=10000&categorySet=7373&key=${TomtomKEY}`
+      `https://api.tomtom.com/search/2/poiSearch/.json?limit=5&lat=${future.Latitude}&lon=${future.Longitude}&radius=10000&categorySet=7373&key=${TomtomKEY}`
     )
       .then(response => {
         return response.json();
