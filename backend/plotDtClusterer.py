@@ -2,11 +2,18 @@ import hdbscan
 import json
 from sklearn import tree
 import pickle
-import folium
 import math
 import numpy as np
 # import multiprocessing 
 import argparse
+import flask
+from flask import request, jsonify
+from flask_cors import CORS
+
+app = flask.Flask(__name__)
+app.config["DEBUG"] = True
+CORS(app)
+
 parser = argparse.ArgumentParser()
 parser.add_argument("-v", "--verbose", action="store_true",
                     help="increase output verbosity")
@@ -17,7 +24,9 @@ parser.add_argument("-f","--useFolium",action="store_true",
 parser.add_argument("-s", "--storeResults", action="store_true",
                     help="store intermediate results in text file")
 args = parser.parse_args()
-if args.useFolium:print("::WARNING:: Using Folium, Data processing is Intensive and may take some time to load on browser,depending on pc.")
+if args.useFolium:
+  import folium
+  print("::WARNING:: Using Folium, Data processing is Intensive and may take some time to load on browser,depending on pc.")
 if args.verbose:print("Loading and pre-processing data")
 with open('./location_history_102014.json') as f:
   data = json.load(f)
@@ -132,3 +141,11 @@ if args.showPlot:
   handles, labels = scatter.legend_elements(prop="sizes", alpha=0.6)
   legend2 = ax.legend(handles, labels, loc="upper right", title="Sizes")
   plt.show()
+@app.route('/getLocation', methods=['GET'])
+def home():
+    apiloc = {
+        "Latitude": ans[0][1],
+        "Longitude": ans[0][0]
+    }
+    return jsonify(apiloc)
+app.run()

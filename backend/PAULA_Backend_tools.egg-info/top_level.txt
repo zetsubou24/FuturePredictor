@@ -1,0 +1,12 @@
+argparse
+colorsys
+flask
+flask_cors
+folium
+json
+matplotlib
+numpy
+pandas
+pickle
+scipy
+sklearn
